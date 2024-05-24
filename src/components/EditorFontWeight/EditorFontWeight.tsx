@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import classes from './EditorFontWeight.module.css';
 
 const fontWeight = ['bold', 'lighter', 'normal'];
@@ -10,7 +10,9 @@ type PropsEditorFontWeightEdit = {
   setFontWeight?: (fontWeight: string) => void;
 };
 
-export function EditorFontWeight({ value, setFontWeight }: PropsEditorFontWeightEdit) {
+export type EditorFontWeightComposeProps = React.ComponentProps<'div'> & PropsEditorFontWeightEdit;
+
+export function EditorFontWeight({ value, setFontWeight, ...rest }: EditorFontWeightComposeProps) {
   const [selectedFontWeight, setSelectedFontWeight] = useState(() => {
     return value ? (value as FontWeight) : 'normal';
   });
@@ -21,7 +23,7 @@ export function EditorFontWeight({ value, setFontWeight }: PropsEditorFontWeight
   }
 
   return (
-    <div className={classes['wrapper']}>
+    <div className={classes['wrapper']} {...rest}>
       <span className={classes['title']}> Modify font weight </span>
       {fontWeight.map((item) => (
         <div className={classes['input']} onClick={() => onChange(item)}>
