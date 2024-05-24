@@ -1,0 +1,23 @@
+.img-wrapper {
+  position: relative;
+}
+
+#parent:hover > #detail-btn {
+  display: block;
+}
+
+.detail-btn {
+  display: none;
+  color: red;
+  position: absolute;
+  margin: auto;
+  inset: 0;
+}
+
+.img-template {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1.2;
+  object-fit: cover;
+  border-radius: 8px;
+}

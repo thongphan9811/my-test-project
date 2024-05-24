@@ -1,0 +1,25 @@
+.color-wrapper {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.color-list {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.color-item {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+}
+
+.active {
+  border: 2px solid red;
+}
+
+.title {
+  font-weight: 700;
+}

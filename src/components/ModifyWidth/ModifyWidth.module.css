@@ -1,0 +1,9 @@
+.input-wrapper {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+}
+
+.title-input {
+  font-weight: 700;
+}

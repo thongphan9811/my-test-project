@@ -1,0 +1,26 @@
+.container {
+  position: absolute;
+  inset: 3.5rem;
+  margin: auto;
+  background-color: pink;
+  display: grid;
+  padding: 0.5rem;
+  overflow: auto;
+  border-radius: 0.4rem;
+  max-width: 1279px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0 8px 0;
+}
+
+.list-wrapper {
+  display: grid;
+  height: 500px;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  column-gap: 2rem;
+}
