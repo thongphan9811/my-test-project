@@ -1,6 +1,5 @@
 import { useCallback } from 'react';
 import { EditAbleElement } from '../components/Editor';
-import { ModifyIMGProps, Shape } from '../components/ModifyImage';
 import {
   DetailState,
   DispatchState,
@@ -12,26 +11,22 @@ import {
   setShapeImg,
   setWidth,
 } from '../services';
-import { PropsModify } from '../components/ModifyWidth';
-import { ModifyBackgroundComposeProps } from '../components/ModifyBackground';
-import { EditorFontWeightComposeProps } from '../components/EditorFontWeight';
-
-type composeProps = PropsModify | ModifyBackgroundComposeProps | EditorFontWeightComposeProps | ModifyIMGProps;
+import { EditProps } from '../common/type';
 
 export function useGetterProps(dispatch: DispatchState, state: DetailState) {
   const getProps = useCallback(
-    (element?: EditAbleElement | null): Record<string, composeProps> => {
+    (element?: EditAbleElement | null): Record<string, EditProps> => {
       switch (element) {
         case 'page':
           return {
             modifyWidthProps: {
-              setWidth: (width: number) => {
+              onChange: (width: string) => {
                 return setWidth(dispatch, width);
               },
               value: state.width,
             },
             modifyBackgroundProps: {
-              setBackGround: (color: string) => {
+              onChange: (color: string) => {
                 return setBackGroundColor(dispatch, color);
               },
               value: state.backgroundColor,
@@ -40,13 +35,13 @@ export function useGetterProps(dispatch: DispatchState, state: DetailState) {
         case 'heading':
           return {
             editorFontWeightProps: {
-              setFontWeight: (fontSize: string) => {
+              onChange: (fontSize: string) => {
                 return setFontWeightAction(dispatch, fontSize);
               },
               value: state.header.fontWeight,
             },
             editorFontSizeProps: {
-              setWidth: (size: number) => {
+              onChange: (size: string) => {
                 return setFontSizeAction(dispatch, size);
               },
               value: state.header.fontSize,
@@ -55,13 +50,13 @@ export function useGetterProps(dispatch: DispatchState, state: DetailState) {
         case 'description':
           return {
             descriptionEditorWidth: {
-              setWidth: (width: number) => {
+              onChange: (width: string) => {
                 return setFontSizeDescriptionAction(dispatch, width);
               },
               value: state.description.fontSize,
             },
             descriptionEditorFontWeight: {
-              setFontWeight: (weight: string) => {
+              onChange: (weight: string) => {
                 return setFontWeightDescriptionAction(dispatch, weight);
               },
               value: state.description.fontWeight,
@@ -70,7 +65,7 @@ export function useGetterProps(dispatch: DispatchState, state: DetailState) {
         case 'image':
           return {
             imageEditorShape: {
-              onChangeShape: (shape: Shape) => {
+              onChange: (shape: string) => {
                 return setShapeImg(dispatch, shape);
               },
               value: state.img.shape,

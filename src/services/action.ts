@@ -1,11 +1,10 @@
 import { DispatchState } from '.';
-import { Shape } from '../components/ModifyImage';
 
-export function setWidth(dispatch: DispatchState, width: number) {
+export function setWidth(dispatch: DispatchState, width: string) {
   return dispatch({
     type: 'SET_PAGE_WIDTH',
     payload: {
-      width: width,
+      width: Number(width),
     },
   });
 }
@@ -30,31 +29,29 @@ export function setFontWeightAction(dispatch: DispatchState, fontWeight: string)
   });
 }
 
-export function setFontSizeAction(dispatch: DispatchState, fontSize: number) {
+export function setFontSizeAction(dispatch: DispatchState, fontSize: string) {
   return dispatch({
     type: 'SET_FONT_SIZE_HEADING',
     payload: {
       header: {
-        fontSize: fontSize,
+        fontSize: Number(fontSize),
       },
     },
   });
 }
 
-export function setFontSizeDescriptionAction(dispatch: DispatchState, fontSize: number) {
+export function setFontSizeDescriptionAction(dispatch: DispatchState, fontSize: string) {
   return dispatch({
     type: 'SET_FONT_SIZE_DESCRIPTION',
     payload: {
       description: {
-        fontSize: fontSize,
+        fontSize: Number(fontSize),
       },
     },
   });
 }
 
 export function setFontWeightDescriptionAction(dispatch: DispatchState, fontWeight: string) {
-  console.log(fontWeight, 'runn');
-
   return dispatch({
     type: 'SET_FONT_WEIGHT_DESCRIPTION',
     payload: {
@@ -65,7 +62,7 @@ export function setFontWeightDescriptionAction(dispatch: DispatchState, fontWeig
   });
 }
 
-export function setShapeImg(dispatch: DispatchState, shape: Shape) {
+export function setShapeImg(dispatch: DispatchState, shape: string) {
   return dispatch({
     type: 'SET_SHAPE_IMG',
     payload: {

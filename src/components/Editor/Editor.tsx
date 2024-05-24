@@ -9,7 +9,14 @@ import { useGetterProps } from '../../hooks';
 import { ModifyImage } from '../ModifyImage';
 
 export type EditAbleElement = 'page' | 'heading' | 'description' | 'image';
-export type PropsKey = 'modifyWidthProps' | 'modifyBackgroundProps' | 'editorFontWeightProps';
+export type PropsKey =
+  | 'modifyWidthProps'
+  | 'modifyBackgroundProps'
+  | 'editorFontWeightProps'
+  | 'editorFontSizeProps'
+  | 'descriptionEditorWidth'
+  | 'descriptionEditorFontWeight'
+  | 'imageEditorShape';
 
 const element = {
   page: [
@@ -134,9 +141,12 @@ export function Editor() {
       </div>
       <div className={classes['modify']}>
         <div className={classes['title-editor']}>Editor Template</div>
-        {element[activeElement as EditAbleElement]?.map(({ Component, propsKey }, index) => (
-          <Component key={`${propsKey}-${index}`} {...getProps(activeElement)?.[propsKey]} />
-        ))}
+        {element[activeElement as EditAbleElement]?.map(({ Component, propsKey }, index) => {
+          const propsGroup = getProps(activeElement);
+          const props = propsGroup[propsKey];
+
+          return <Component key={`${propsKey}-${index}`} {...props} />;
+        })}
       </div>
     </div>
   );

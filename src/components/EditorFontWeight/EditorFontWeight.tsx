@@ -1,18 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import classes from './EditorFontWeight.module.css';
+import { EditProps } from '../../common/type';
 
 const fontWeight = ['bold', 'lighter', 'normal'];
 
 type FontWeight = (typeof fontWeight)[number];
 
-type PropsEditorFontWeightEdit = {
-  value: string;
-  setFontWeight?: (fontWeight: string) => void;
-};
-
-export type EditorFontWeightComposeProps = React.ComponentProps<'div'> & PropsEditorFontWeightEdit;
-
-export function EditorFontWeight({ value, setFontWeight, ...rest }: EditorFontWeightComposeProps) {
+export function EditorFontWeight({ value, onChange: setFontWeight, ...rest }: EditProps) {
   const [selectedFontWeight, setSelectedFontWeight] = useState(() => {
     return value ? (value as FontWeight) : 'normal';
   });
