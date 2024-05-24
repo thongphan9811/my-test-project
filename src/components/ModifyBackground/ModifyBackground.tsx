@@ -1,19 +1,13 @@
 import { useState } from 'react';
 import classes from './ModifyBackground.module.css';
 import classNames from 'classnames';
+import { EditProps } from '../../common/type';
 
 const colors = ['antiquewhite', 'aquamarine', 'burlywood', 'hotpink'] as const;
 
 type Color = (typeof colors)[number];
 
-type ModifyBackgroundProps = {
-  value: string;
-  setBackGround?: (color: string) => void;
-};
-
-export type ModifyBackgroundComposeProps = React.ComponentProps<'div'> & ModifyBackgroundProps;
-
-export function ModifyBackground({ setBackGround, value, ...rest }: ModifyBackgroundComposeProps) {
+export function ModifyBackground({ onChange: setBackGround, value, ...rest }: EditProps) {
   const [colorActive, setColorActive] = useState<Color>(() => {
     return colors.find((color) => color === value) as Color;
   });

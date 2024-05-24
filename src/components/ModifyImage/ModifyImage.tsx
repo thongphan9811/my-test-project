@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 import classes from './ModifyImage.module.css';
+import { EditProps } from '../../common/type';
 
 function IconRectangular() {
   return (
@@ -63,19 +64,12 @@ const Icons = [
   },
 ];
 
-type PropsModifyShape = {
-  value?: Shape;
-  onChangeShape?: (value: Shape) => void;
-};
-
-export type ModifyIMGProps = React.ComponentProps<'div'> & PropsModifyShape;
-
-export function ModifyImage({ value, onChangeShape }: ModifyIMGProps) {
-  const [activeElement, setActiveElement] = useState<Shape | undefined>(value);
+export function ModifyImage({ value, onChange }: EditProps) {
+  const [activeElement, setActiveElement] = useState<string | undefined>(String(value));
 
   function onClick(element: Shape) {
     setActiveElement(element);
-    onChangeShape?.(element);
+    onChange?.(element);
   }
 
   return (
