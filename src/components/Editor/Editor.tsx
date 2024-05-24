@@ -73,7 +73,7 @@ export function Editor() {
     if (state.img.shape === 'circle') {
       return {
         borderRadius: '50% 50% 50% 50%',
-      }; 
+      };
     }
     return {};
   }, [activeElement, state.img.shape]);

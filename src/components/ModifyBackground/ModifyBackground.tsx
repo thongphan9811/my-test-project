@@ -11,8 +11,12 @@ type ModifyBackgroundProps = {
   setBackGround?: (color: string) => void;
 };
 
-export function ModifyBackground({ setBackGround }: ModifyBackgroundProps) {
-  const [colorActive, setColorActive] = useState<Color>(colors[0]);
+export type ModifyBackgroundComposeProps = React.ComponentProps<'div'> & ModifyBackgroundProps;
+
+export function ModifyBackground({ setBackGround, value, ...rest }: ModifyBackgroundComposeProps) {
+  const [colorActive, setColorActive] = useState<Color>(() => {
+    return colors.find((color) => color === value) as Color;
+  });
 
   function onChange(color: Color) {
     setColorActive(color);
@@ -20,7 +24,7 @@ export function ModifyBackground({ setBackGround }: ModifyBackgroundProps) {
   }
 
   return (
-    <div className={classes['color-wrapper']}>
+    <div className={classes['color-wrapper']} {...rest}>
       <div className={classes['color-list']}>
         {colors.map((color) => {
           return (
