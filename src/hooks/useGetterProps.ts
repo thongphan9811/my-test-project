@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { EditAbleElement } from '../components/Editor';
-import { Shape } from '../components/ModifyImage';
+import { ModifyIMGProps, Shape } from '../components/ModifyImage';
 import {
   DetailState,
   DispatchState,
@@ -12,10 +12,15 @@ import {
   setShapeImg,
   setWidth,
 } from '../services';
+import { PropsModify } from '../components/ModifyWidth';
+import { ModifyBackgroundComposeProps } from '../components/ModifyBackground';
+import { EditorFontWeightComposeProps } from '../components/EditorFontWeight';
+
+type composeProps = PropsModify | ModifyBackgroundComposeProps | EditorFontWeightComposeProps | ModifyIMGProps;
 
 export function useGetterProps(dispatch: DispatchState, state: DetailState) {
   const getProps = useCallback(
-    (element?: EditAbleElement | null) => {
+    (element?: EditAbleElement | null): Record<string, composeProps> => {
       switch (element) {
         case 'page':
           return {
@@ -65,7 +70,7 @@ export function useGetterProps(dispatch: DispatchState, state: DetailState) {
         case 'image':
           return {
             imageEditorShape: {
-              onChange: (shape: Shape) => {
+              onChangeShape: (shape: Shape) => {
                 return setShapeImg(dispatch, shape);
               },
               value: state.img.shape,

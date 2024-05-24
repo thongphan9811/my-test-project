@@ -63,17 +63,19 @@ const Icons = [
   },
 ];
 
-type Props = {
+type PropsModifyShape = {
   value?: Shape;
-  onChange?: (value: Shape) => void;
+  onChangeShape?: (value: Shape) => void;
 };
 
-export function ModifyImage({ value, onChange }: Props) {
+export type ModifyIMGProps = React.ComponentProps<'div'> & PropsModifyShape;
+
+export function ModifyImage({ value, onChangeShape }: ModifyIMGProps) {
   const [activeElement, setActiveElement] = useState<Shape | undefined>(value);
 
   function onClick(element: Shape) {
     setActiveElement(element);
-    onChange?.(element);
+    onChangeShape?.(element);
   }
 
   return (

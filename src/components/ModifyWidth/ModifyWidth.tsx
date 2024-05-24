@@ -6,12 +6,14 @@ export type ModifyWidthProps = {
   setWidth: (width: number) => void;
 };
 
+export type PropsModify = React.ComponentProps<'div'> & ModifyWidthProps;
+
 const WIDTH_DEFAULT = 50;
 const FALLBACK_WIDTH = 0;
 const MIN_WIDTH = 200;
 const MAX_WIDTH = 500;
 
-export function ModifyWidth({ value = 200, setWidth: setWidthControl }: ModifyWidthProps) {
+export function ModifyWidth({ value = 200, setWidth: setWidthControl }: Props) {
   const [width, setWidth] = useState(value);
   const ref = React.useRef<number>(value);
 
