@@ -26,7 +26,7 @@ export function Templates(): React.ReactElement {
       <h2 className={classes['title']}>Choose a template to start</h2>
       <div className={classes['list-wrapper']}>
         {templates.map((template, index) => {
-          return <TemplateItem key={String(index)} src={template.src} templateId={template.id} />;
+          return <TemplateItem key={String(index)} src={template.src} templateId={template.id} title={template.key} />;
         })}
       </div>
     </div>
