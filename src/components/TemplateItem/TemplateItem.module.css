@@ -19,5 +19,32 @@
   width: 100%;
   aspect-ratio: 1 / 1.2;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0.5rem;
+}
+
+.title-template {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  text-decoration: none;
+  color: white;
+  background-color: rgba(36, 26, 23, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+.link-to-detail:hover > .overlay {
+  opacity: 1;
+  transition: opacity 400ms ease 0s;
 }
