@@ -30,6 +30,7 @@ export const initialState = {
     text: 'Description load from api',
     fontSize: 30,
     fontWeight: 'normal',
+    with: '100%',
     position: {
       top: 60,
       left: 50,

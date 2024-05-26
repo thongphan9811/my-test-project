@@ -6,3 +6,17 @@
   display: flex;
   gap: 0.5rem;
 }
+
+.icon-shape {
+  color: rgb(231, 229, 228);
+}
+
+.shape {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 0.7rem;
+}

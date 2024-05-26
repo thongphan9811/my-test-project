@@ -12,7 +12,6 @@ export function ModifyWidth({ value = 200, onChange: setWidthControl }: EditProp
   const ref = React.useRef(Number(value));
 
   function onChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value);
     setWidth(Number(event.target.value));
     setWidthControl?.(event.target.value);
   }
@@ -23,9 +22,13 @@ export function ModifyWidth({ value = 200, onChange: setWidthControl }: EditProp
   return (
     <div className={classes['input-wrapper']}>
       <div>
-        <span className={classes['title-input']}>Width </span>: {width}
+        <span className={classes['title-input']}>size </span>: {width}
       </div>
-      <input type="range" value={value} min={minWidth} max={maxWidth} onChange={onChange}></input>
+      <div className={classes['input-size']}>
+        <span>-</span>
+        <input type="range" value={value} min={minWidth} max={maxWidth} onChange={onChange}></input>
+        <span>+</span>
+      </div>
     </div>
   );
 }

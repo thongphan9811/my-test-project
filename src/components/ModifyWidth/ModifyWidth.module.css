@@ -7,3 +7,20 @@
 .title-input {
   font-weight: 700;
 }
+
+.input-size {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-size input {
+  width: 100%;
+  height: 2px;
+}
+
+.input-size span {
+  display: flex;
+  align-items: center;
+}
