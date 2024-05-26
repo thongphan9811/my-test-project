@@ -7,6 +7,8 @@ import { Route } from '../../routes/detail';
 import { DetailState, initialState, reducer } from '../../services';
 import { useGetterProps } from '../../hooks';
 import { ModifyImage } from '../ModifyImage';
+import { ForwardedTooltip } from '../tooltip/Tooltip';
+import { useFloating, useHover, useInteractions } from '@floating-ui/react';
 
 export type EditAbleElement = 'page' | 'heading' | 'description' | 'image';
 export type PropsKey =
@@ -60,11 +62,29 @@ const element = {
 export function Editor() {
   const data = Route.useLoaderData() as DetailState;
   const [activeElement, setActiveElement] = useState<EditAbleElement | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [hoverElement, setHoverElement] = useState<EditAbleElement | null>(null);
+  const { refs, floatingStyles, context } = useFloating({
+    placement: 'right',
+    open: isOpen,
+    onOpenChange: setIsOpen,
+  });
+  const hover = useHover(context);
+  const { getReferenceProps, getFloatingProps } = useInteractions([hover]);
   const [state, dispatch] = useReducer(reducer, initialState, () => {
     return data;
   });
 
   const { getProps } = useGetterProps(dispatch, state);
+
+  function mouseOver(event: React.MouseEvent<HTMLDivElement>, element: EditAbleElement) {
+    event.stopPropagation();
+    setHoverElement(element);
+  }
+
+  function mouseOut() {
+    setHoverElement(null);
+  }
 
   function activeSettingElement(event: React.MouseEvent<HTMLDivElement>, element: EditAbleElement) {
     event.stopPropagation();
@@ -89,6 +109,10 @@ export function Editor() {
     <div className={classes['editor-wrapper']}>
       <div className={classes['editor']}>
         <div
+          onMouseEnter={(e) => mouseOver(e, 'page')}
+          onMouseLeave={mouseOut}
+          ref={refs.setReference as React.Ref<HTMLDivElement>}
+          id="template-export"
           onClick={(e) => activeSettingElement(e, 'page')}
           className={classes['view-edit']}
           style={{
@@ -96,19 +120,26 @@ export function Editor() {
             height: state.height,
             backgroundColor: state.backgroundColor,
           }}
+          {...getReferenceProps()}
         >
           <img
+            onMouseLeave={mouseOut}
+            onMouseEnter={(e) => mouseOver(e, 'image')}
             className={classes['image']}
             src={state.img.src}
             style={{
               width: state.img.size.width,
               height: state.img.size.height,
+              top: state.img.position.top,
+              left: state.img.position.left,
               ...settingShape,
             }}
             onClick={(e) => activeSettingElement(e, 'image')}
           />
 
           <div
+            onMouseEnter={(e) => mouseOver(e, 'heading')}
+            onMouseLeave={mouseOut}
             className={classes['header']}
             style={{
               top: state.header.position.top,
@@ -124,12 +155,15 @@ export function Editor() {
           </div>
 
           <div
+            onMouseLeave={mouseOut}
+            onMouseEnter={(e) => mouseOver(e, 'description')}
             className={classes['description']}
             style={{
               top: state.description.position.top,
               left: state.description.position.left,
               fontSize: state.description.fontSize,
               fontWeight: state.description.fontWeight,
+              width: state.description.width,
             }}
             onClick={(e) => activeSettingElement(e, 'description')}
           >
@@ -138,6 +172,14 @@ export function Editor() {
             </span>
           </div>
         </div>
+        {isOpen && (
+          <ForwardedTooltip
+            title={hoverElement || ''}
+            ref={refs.setFloating as React.Ref<HTMLDivElement>}
+            style={floatingStyles}
+            {...getFloatingProps()}
+          />
+        )}
       </div>
       <div className={classes['modify']}>
         <div className={classes['title-editor']}>Editor Template</div>
