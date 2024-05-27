@@ -1,11 +1,11 @@
-import { useMemo, useReducer, useState } from 'react';
+import { useMemo, useReducer, useRef, useState } from 'react';
 import { EditorFontWeight } from '../EditorFontWeight';
 import { ModifyBackground } from '../ModifyBackground';
 import { ModifyWidth } from '../ModifyWidth/ModifyWidth';
 import classes from './Editor.module.css';
 import { Route } from '../../routes/detail';
 import { DetailState, initialState, reducer } from '../../services';
-import { useGetterProps } from '../../hooks';
+import { useDragNDrop, useGetterProps } from '../../hooks';
 import { ModifyImage } from '../ModifyImage';
 import { ForwardedTooltip } from '../tooltip/Tooltip';
 import { useFloating, useHover, useInteractions } from '@floating-ui/react';
@@ -76,6 +76,13 @@ export function Editor() {
   });
 
   const { getProps } = useGetterProps(dispatch, state);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const { boxRef: refHeading } = useDragNDrop(containerRef, state.header.position.left, state.header.position.top);
+  const { boxRef: refDescription } = useDragNDrop(
+    containerRef,
+    state.description.position.left,
+    state.description.position.top,
+  );
 
   function mouseOver(event: React.MouseEvent<HTMLDivElement>, element: EditAbleElement) {
     event.stopPropagation();
@@ -111,7 +118,10 @@ export function Editor() {
         <div
           onMouseEnter={(e) => mouseOver(e, 'page')}
           onMouseLeave={mouseOut}
-          ref={refs.setReference as React.Ref<HTMLDivElement>}
+          ref={(ref) => {
+            containerRef.current = ref;
+            refs.setReference(ref);
+          }}
           id="template-export"
           onClick={(e) => activeSettingElement(e, 'page')}
           className={classes['view-edit']}
@@ -136,8 +146,8 @@ export function Editor() {
             }}
             onClick={(e) => activeSettingElement(e, 'image')}
           />
-
           <div
+            ref={refHeading}
             onMouseEnter={(e) => mouseOver(e, 'heading')}
             onMouseLeave={mouseOut}
             className={classes['header']}
@@ -158,6 +168,7 @@ export function Editor() {
             onMouseLeave={mouseOut}
             onMouseEnter={(e) => mouseOver(e, 'description')}
             className={classes['description']}
+            ref={refDescription}
             style={{
               top: state.description.position.top,
               left: state.description.position.left,
