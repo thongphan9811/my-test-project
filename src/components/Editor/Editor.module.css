@@ -37,6 +37,7 @@
   letter-spacing: -0.1px;
   justify-content: center;
   align-items: center;
+  white-space: nowrap ;
 }
 
 .description {
@@ -46,6 +47,7 @@
   font-size: 0.75rem;
   justify-content: center;
   align-items: center;
+  white-space: nowrap;
 }
 
 .image {
